@@ -27,6 +27,11 @@
 - Creating KPI's 
 - Dax Queries
 - Creating and formating charts
+- Different DAX functions like Calculate,Sum,Sumx,Filter,Allselected,
+  values,selectedvalue,return,concatenate,diving etc
+- Creating different shapes and formating
+- Generating insights from charts
+- Export report
 ### Steps followed 
 
 - Step 1 : Load data into Power BI Desktop, dataset is a csv file.
@@ -51,8 +56,4 @@
 - Step 7 : Select a card and choose 'ipl_ball_by_ball_2008_2022' table, then drag the 'batter' into filter section and **choose top N**, then take sum of batter-run and put it into by values. Then select another card and **choose sum of batsman-run to get total runs he made**. To join two particular fields used `CONCATENATE` funstion.
            
            Batter Runs = CONCATENATE(SUM(ipl_ball_by_ball_2008_2022[batsman_run]), " Runs")
-- Different DAX functions like Calculate,Sum,Sumx,Filter,Allselected,
-  values,selectedvalue,return,concatenate,diving etc
-- Creating different shapes and formating
-- Generating insights from charts
-- Export report
+
