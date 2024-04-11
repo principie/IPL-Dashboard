@@ -56,7 +56,7 @@
            return title_winner
   A card visual was used to represent the **Title Winner**.
 
-![Screenshot 2024-04-10 215155](https://github.com/principie/IPL-Dashboard/assets/93659513/63313b72-436f-4011-a5f6-1c658a846aca)
+  ![Screenshot 2024-04-10 215155](https://github.com/principie/IPL-Dashboard/assets/93659513/63313b72-436f-4011-a5f6-1c658a846aca)
 - Step 7 : Select a card and choose 'ipl_ball_by_ball_2008_2022' table, then drag the 'batter' into filter section and **choose top N**, then take sum of batter-run and put it into by values. Then select another card and **choose sum of batsman-run to get total runs he made**. To join two particular fields used `CONCATENATE` function. And it also represents the **Orange Cap Winner**. Same for the **Purple Cup Winner** choose 'is_wicke_delivery' but here we have to aslo choose 'dismisal_kind' bcz some out (runout,retired hurt etc) not given to that particular bowler.  
            
            Batter Runs = CONCATENATE(SUM(ipl_ball_by_ball_2008_2022[batsman_run]), " Runs")
