@@ -54,10 +54,10 @@
            Title Winnner = VAR max_date = CALCULATE(MAX('Calender Table'[Date]),ALLSELECTED(ipl_matches_2008_2022), VALUES(ipl_matches_2008_2022))
            var title_winner = CALCULATE(SELECTEDVALUE(ipl_matches_2008_2022[winning_team]), 'Calender Table'[Date] = max_date)
            return title_winner
-   A card visual was used to represent the **Title Winner**.
+  A card visual was used to represent the **Title Winner**.
 
-     ![Screenshot 2024-04-10 215155](https://github.com/principie/IPL-Dashboard/assets/93659513/63313b72-436f-4011-a5f6-1c658a846aca)
-- Step 7 : Select a card and choose 'ipl_ball_by_ball_2008_2022' table, then drag the 'batter' into filter section and **choose top N**, then take sum of batter-run and put it into by values. Then select another card and **choose sum of batsman-run to get total runs he made**. To join two particular fields used `CONCATENATE` function. And it also represents the **Orange Cap Winner**. Same for **Purple Cup Winner**.
+![Screenshot 2024-04-10 215155](https://github.com/principie/IPL-Dashboard/assets/93659513/63313b72-436f-4011-a5f6-1c658a846aca)
+- Step 7 : Select a card and choose 'ipl_ball_by_ball_2008_2022' table, then drag the 'batter' into filter section and **choose top N**, then take sum of batter-run and put it into by values. Then select another card and **choose sum of batsman-run to get total runs he made**. To join two particular fields used `CONCATENATE` function. And it also represents the **Orange Cap Winner**. Same for the **Purple Cup Winner** choose 'is_wicke_delivery' but here we have to aslo choose 'dismisal_kind' bcz some out (runout,retired hurt etc) not given to that particular bowler.  
            
            Batter Runs = CONCATENATE(SUM(ipl_ball_by_ball_2008_2022[batsman_run]), " Runs")
            Bowler Wickets = CONCATENATE(SUM(ipl_ball_by_ball_2008_2022[iswicket_delivery]), " Wickets")
@@ -69,4 +69,31 @@
 - Step 8 : For the 6's & 4's choose `∑ batsman-run`and in basic filtering section choose only 6 and same for 4's.
 
      ![Screenshot 2024-04-10 225652](https://github.com/principie/IPL-Dashboard/assets/93659513/4472533f-9600-4439-955b-2c511829471d)
-     
+
+- Step 9 : Create a slicer and choose 'batter' and it will affecting the other visuals.So edited the interaction of this particular filter.Then create a card ti count total runs of that particular batsman then choose 6's and 4's respectively. Same for bowling stats.
+         
+         Strike Rate for Batsman = (SUM(ipl_ball_by_ball_2008_2022[batsman_run])/COUNT(ipl_ball_by_ball_2008_2022[ball_number])) * 100
+
+  To find the Economy create a card and a new measure
+              
+           Economy = DIVIDE(
+                SUMX(
+                FILTER(ipl_ball_by_ball_2008_2022,ipl_ball_by_ball_2008_2022[extra_type]<>"legbyes" && ipl_ball_by_ball_2008_2022[extra_type]<>"byes"),ipl_ball_by_ball_2008_2022[total_run]),(COUNT(ipl_ball_by_ball_2008_2022[overs]))/6)     
+
+  To find the avergae create a measure
+
+           Average by Bowler = DIVIDE(
+                SUMX(
+                FILTER(ipl_ball_by_ball_2008_2022, ipl_ball_by_ball_2008_2022[extra_type]<>"legbyes" && ipl_ball_by_ball_2008_2022[extra_type]<>"byes"),ipl_ball_by_ball_2008_2022[total_run]),SUM(ipl_ball_by_ball_2008_2022[iswicket_delivery])) 
+
+   For Bowling Strike Rate 
+
+         Bowling SR = COUNT(ipl_ball_by_ball_2008_2022[bowler])/SUM(ipl_ball_by_ball_2008_2022[iswicket_delivery]) 
+
+  ![Screenshot 2024-04-11 091511](https://github.com/principie/IPL-Dashboard/assets/93659513/880ef89a-4554-48f5-9cd7-869e3e2e9a65)
+
+- Step 10 : Create a Donut Chart for matches win based on toss decision and create a measure for that.
+
+          Matches won on toss decision = CALCULATE(COUNTROWS(ipl_matches_2008_2022), ipl_matches_2008_2022[toss_winner] =ipl_matches_2008_2022[winning_team])
+
+  ![Screenshot 2024-04-11 092153](https://github.com/principie/IPL-Dashboard/assets/93659513/9e07db54-0132-4e42-990f-2e9597d6ad7f)
